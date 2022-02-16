@@ -11,13 +11,13 @@ Updating from v2.x.x to v3.x.x might have some breaking changes due to migration
 ## Installation
 
 ```sh
-npm install @devlowkey/react-native-gif
+npm install @lowkeychat/react-native-gif
 ```
 
 or
 
 ```sh
-yarn add @devlowkey/react-native-gif
+yarn add @lowkeychat/react-native-gif
 ```
 
 Then 
@@ -29,7 +29,7 @@ npx pod-install
 ## Usage
 
 ```js
-import GifImage from '@devlowkey/react-native-gif';
+import GifImage from '@lowkeychat/react-native-gif';
 
 // ...
 
