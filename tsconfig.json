@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@lowkeychat/react-native-gif": ["./src/index"]
+      "@devlowkey/react-native-gif": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
