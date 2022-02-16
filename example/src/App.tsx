@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import GifImage from '@lowkey/react-native-gif';
+import GifImage from '@lowkeychat/react-native-gif';
 
 export default function App() {
   const [hide, setHide] = React.useState(true);
