@@ -50,6 +50,7 @@
   },
   "homepage": "https://github.com/Lowkeychat/react-native-gif#readme",
   "publishConfig": {
+    "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
