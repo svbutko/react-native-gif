@@ -10,7 +10,7 @@
 {
   if ((self = [super initWithFrame:frame])) {
       _imageView = [SDAnimatedImageView new];
-              
+
       _imageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
       _imageView.sd_imageTransition.duration = 0.25;
       _imageView.shouldIncrementalLoad = NO;
@@ -21,20 +21,19 @@
 - (void)layoutSubviews
 {
     _imageView.frame = self.bounds;
-    
+
     [self addSubview:_imageView];
     [self reloadImage];
 }
 - (void) reloadImage {
-    
-    if(_source && _onLoadEnd && self.frame.size.width > 0 && _quality) {
+    if(_source && self.frame.size.width > 0 && _quality) {
         NSURL *url = [NSURL URLWithString:_source];
-        
+
         CGFloat scale = UIScreen.mainScreen.scale;
         CGSize thumbnailSize = CGSizeMake(self.frame.size.width * scale * _quality, self.frame.size.height * scale * _quality);
-        
+
         [_imageView sd_setImageWithURL:url placeholderImage:nil options:SDWebImageProgressiveLoad context:@{SDWebImageContextImageThumbnailPixelSize : @(thumbnailSize)} progress:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            
+
             if(self->_onLoadEnd) {
                 self->_onLoadEnd(@{});
             }
@@ -52,7 +51,7 @@
 {
   if (![resizeMode isEqual:_resizeMode]) {
       _resizeMode = [resizeMode copy];
-      
+
       if([_resizeMode isEqualToString:@"contain"]) {
           _imageView.contentMode = UIViewContentModeScaleAspectFit;
       } else if ([_resizeMode isEqualToString:@"cover"]) {
@@ -69,7 +68,7 @@
             [_imageView stopAnimating];
         } else {
             [_imageView startAnimating];
-        }        
+        }
     }
 }
 
