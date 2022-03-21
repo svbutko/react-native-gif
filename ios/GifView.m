@@ -31,15 +31,24 @@
 
         CGFloat scale = UIScreen.mainScreen.scale;
         CGSize thumbnailSize = CGSizeMake(self.frame.size.width * scale * _quality, self.frame.size.height * scale * _quality);
-
-        [_imageView sd_setImageWithURL:url placeholderImage:nil options:SDWebImageProgressiveLoad context:@{SDWebImageContextImageThumbnailPixelSize : @(thumbnailSize)} progress:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        UIImage *placeholderImage = nil;
+        if(_placeholderUrl != nil) {
+            NSURL *placeholderUrl = [NSURL URLWithString:_placeholderUrl];
+            NSData *data = [NSData dataWithContentsOfURL:placeholderUrl];
+            placeholderImage = [[UIImage alloc] initWithData:data];
+        }
+        
+        [_imageView sd_setImageWithURL:url placeholderImage:placeholderImage options:SDWebImageProgressiveLoad context:@{SDWebImageContextImageThumbnailPixelSize : @(thumbnailSize)} progress:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
 
             if(self->_onLoadEnd) {
                 self->_onLoadEnd(@{});
             }
         }];
+    
     }
 }
+
+
 - (void)setSource:(NSString *)source
 {
   if (![source isEqual:_source]) {
@@ -47,6 +56,18 @@
       [self reloadImage];
   }
 }
+
+
+- (void)setPlaceholderUrl:(NSString *)placeholderUrl
+{
+  if (![placeholderUrl isEqual:_placeholderUrl]) {
+      _placeholderUrl = [placeholderUrl copy];
+      [self reloadImage];
+  }
+}
+
+
+
 - (void)setResizeMode:(NSString *)resizeMode
 {
   if (![resizeMode isEqual:_resizeMode]) {

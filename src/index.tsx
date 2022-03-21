@@ -10,6 +10,7 @@ type GifProps = {
   source: string;
   style: any;
   resizeMode: ImageResizeMode;
+  placeholderUrl?: string;
   paused: boolean;
   onLoadEnd?: () => void;
   useCPU?: boolean;
@@ -24,6 +25,7 @@ const GifImage = (props: {
   resizeMode: ImageResizeMode;
   paused?: boolean;
   onLoadEnd?: () => void;
+  placeholderUrl?: string;
   useCPU?: boolean;
   quality?: number;
 }) => {
@@ -35,6 +37,7 @@ const GifImage = (props: {
     onLoadEnd,
     useCPU = false,
     quality = 1,
+    placeholderUrl,
   } = props;
   const relovedSource = Image.resolveAssetSource(source);
   return Platform.OS === 'ios' ? (
@@ -44,6 +47,7 @@ const GifImage = (props: {
       resizeMode={resizeMode}
       paused={paused}
       onLoadEnd={onLoadEnd}
+      placeholderUrl={placeholderUrl}
       useCPU={useCPU}
       quality={quality}
     />
