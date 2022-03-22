@@ -3,7 +3,8 @@
 #import <React/RCTView.h>
 
 @interface GifView : UIView
-@property (nonatomic, copy) NSString *source;    
+@property (nonatomic, copy) NSString *source;
+@property (nonatomic, copy) NSString *placeholderUrl;
 @property (nonatomic, copy) NSString *resizeMode;
 
 @property (nonatomic, assign) BOOL *paused;
