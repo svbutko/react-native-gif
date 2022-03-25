@@ -12,7 +12,7 @@
       _imageView = [SDAnimatedImageView new];
 
       _imageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
-      _imageView.sd_imageTransition.duration = 0.25;
+      _imageView.sd_imageTransition.duration = 0.4;
       _imageView.shouldIncrementalLoad = YES;
   }
   return self;
@@ -25,6 +25,7 @@
     [self addSubview:_imageView];
     [self reloadImage];
 }
+
 - (void) reloadImage {
     if(_source && self.frame.size.width > 0 && _quality) {
         NSURL *url = [NSURL URLWithString:_source];
@@ -37,6 +38,10 @@
             NSData *data = [NSData dataWithContentsOfURL:placeholderUrl];
             placeholderImage = [[UIImage alloc] initWithData:data];
         }
+        
+        _imageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
+        _imageView.sd_imageTransition.duration = 0.4;
+        _imageView.shouldIncrementalLoad = YES;
         
         [_imageView sd_setImageWithURL:url placeholderImage:placeholderImage options:SDWebImageProgressiveLoad context:@{SDWebImageContextImageThumbnailPixelSize : @(thumbnailSize)} progress:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
 
