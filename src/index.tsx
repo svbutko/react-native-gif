@@ -1,31 +1,33 @@
 import React, { FC, ReactNode } from 'react';
 import {
   Image,
-  ImageResizeMode,
+  ImageLoadEventData,
+  ImageProps,
   ImageStyle,
   ImageURISource,
+  NativeSyntheticEvent,
   Platform,
   requireNativeComponent,
 } from 'react-native';
 
-interface IGifProps {
+export interface GifImageProps extends Omit<ImageProps, 'onLoadEnd'> {
   source: ImageURISource;
-  resizeMode: ImageResizeMode;
+  resizeMode: 'cover' | 'contain';
   paused?: boolean;
   style?: ImageStyle;
   placeholderUrl?: string;
-  onLoadEnd?: () => void;
+  onLoadEnd?: (e?: NativeSyntheticEvent<ImageLoadEventData>) => void;
   useCPU?: boolean;
   quality?: number;
   showLoadingIndicator?: boolean;
   children?: ReactNode;
 }
 
-const GifViewManager = requireNativeComponent<IGifProps>('GifImage');
+const GifViewManager = requireNativeComponent<GifImageProps>('GifImage');
 
 const GifComponent = Platform.OS === 'ios' ? GifViewManager : Image;
 
-const GifImage: FC<IGifProps> = (props) => {
+const GifImage: FC<GifImageProps> = (props) => {
   return <GifComponent {...props} />;
 };
 
