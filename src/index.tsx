@@ -1,59 +1,39 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import {
   Image,
   ImageResizeMode,
+  ImageStyle,
+  ImageURISource,
   Platform,
   requireNativeComponent,
 } from 'react-native';
 
-type GifProps = {
-  source: string;
-  style: any;
-  resizeMode: ImageResizeMode;
-  placeholderUrl?: string;
-  paused: boolean;
-  onLoadEnd?: () => void;
-  useCPU?: boolean;
-  quality?: number;
-};
-
-export const GifViewManager = requireNativeComponent<GifProps>('GifImage');
-
-const GifImage = (props: {
-  source: { uri: string };
-  style: any;
+interface IGifProps {
+  source: ImageURISource;
   resizeMode: ImageResizeMode;
   paused?: boolean;
-  onLoadEnd?: () => void;
+  style?: ImageStyle;
   placeholderUrl?: string;
+  onLoadEnd?: () => void;
   useCPU?: boolean;
   quality?: number;
-}) => {
-  const {
-    style,
-    source,
-    resizeMode,
-    paused = false,
-    onLoadEnd,
-    useCPU = false,
-    quality = 1,
-    placeholderUrl,
-  } = props;
-  const relovedSource = Image.resolveAssetSource(source);
-  return Platform.OS === 'ios' ? (
-    <GifViewManager
-      style={style}
-      source={relovedSource.uri}
-      resizeMode={resizeMode}
-      paused={paused}
-      onLoadEnd={onLoadEnd}
-      placeholderUrl={placeholderUrl}
-      useCPU={useCPU}
-      quality={quality}
-    />
-  ) : (
-    <Image {...props} />
-  );
+  showLoadingIndicator?: boolean;
+  children?: ReactNode;
+}
+
+const GifViewManager = requireNativeComponent<IGifProps>('GifImage');
+
+const GifComponent = Platform.OS === 'ios' ? GifViewManager : Image;
+
+const GifImage: FC<IGifProps> = (props) => {
+  return <GifComponent {...props} />;
+};
+
+GifImage.defaultProps = {
+  paused: false,
+  useCPU: false,
+  showLoadingIndicator: false,
+  quality: 1,
 };
 
 export default GifImage;
