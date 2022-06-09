@@ -1,5 +1,6 @@
 #import "GifView.h"
 #import <SDWebImage/SDWebImage.h>
+#import "CustomActivityIndicator.h"
 
 @implementation GifView {
 
@@ -92,12 +93,8 @@
     if(showLoadingIndicator != _showLoadingIndicator) {
         _showLoadingIndicator = showLoadingIndicator;
 
-        SDWebImageActivityIndicator* loadingIndicator = [[SDWebImageActivityIndicator alloc] init];
-        loadingIndicator.indicatorView.color = [UIColor whiteColor];
-        loadingIndicator.indicatorView.backgroundColor = [UIColor colorWithRed:50.0 green:46.0 blue:77.0 alpha:1.0];
-
         if (showLoadingIndicator) {
-            _imageView.sd_imageIndicator = loadingIndicator;
+            _imageView.sd_imageIndicator = [[CustomActivityIndicator alloc] init];
         } else {
             _imageView.sd_imageIndicator = nil;
         }
