@@ -13,10 +13,10 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => "10.0" }
   s.source       = { :git => "https://github.com/Lowkeychat/react-native-gif", :tag => "#{s.version}" }
 
-  
-  s.source_files = "ios/**/*.{h,m,mm,swift}"
-  
 
-  s.dependency "React-Core"  
-  s.dependency 'SDWebImage', '~> 5.12.3'
+  s.source_files = "ios/**/*.{h,m,mm,swift}"
+
+
+  s.dependency "React-Core"
+  s.dependency 'SDWebImage', '~> 5.12.5'
 end
