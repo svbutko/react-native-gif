@@ -38,26 +38,27 @@
             NSData *data = [NSData dataWithContentsOfURL:placeholderUrl];
             placeholderImage = [[UIImage alloc] initWithData:data];
         }
-        
+
         _imageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
         _imageView.sd_imageTransition.duration = 0.4;
         _imageView.shouldIncrementalLoad = YES;
-        
+
         [_imageView sd_setImageWithURL:url placeholderImage:placeholderImage options:SDWebImageProgressiveLoad context:@{SDWebImageContextImageThumbnailPixelSize : @(thumbnailSize)} progress:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
 
             if(self->_onLoadEnd) {
                 self->_onLoadEnd(@{});
             }
         }];
-    
+
     }
 }
 
 
-- (void)setSource:(NSString *)source
+- (void)setSource:(NSDictionary *)source
 {
-  if (![source isEqual:_source]) {
-      _source = [source copy];
+    NSString *uri = [source objectForKey:@"uri"];
+  if (![uri isEqual:_source]) {
+      _source = [uri copy];
       [self reloadImage];
   }
 }
@@ -84,6 +85,23 @@
           _imageView.contentMode = UIViewContentModeScaleAspectFill;
       }
   }
+}
+
+- (void)setShowLoadingIndicator:(BOOL *)showLoadingIndicator
+{
+    if(showLoadingIndicator != _showLoadingIndicator) {
+        _showLoadingIndicator = showLoadingIndicator;
+
+        SDWebImageActivityIndicator* loadingIndicator = [[SDWebImageActivityIndicator alloc] init];
+        loadingIndicator.indicatorView.color = [UIColor whiteColor];
+        loadingIndicator.indicatorView.backgroundColor = [UIColor colorWithRed:50.0 green:46.0 blue:77.0 alpha:1.0];
+
+        if (showLoadingIndicator) {
+            _imageView.sd_imageIndicator = loadingIndicator;
+        } else {
+            _imageView.sd_imageIndicator = nil;
+        }
+    }
 }
 
 - (void)setPaused:(BOOL *)paused

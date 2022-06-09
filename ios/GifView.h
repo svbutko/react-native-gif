@@ -1,4 +1,3 @@
-// #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <React/RCTView.h>
 
@@ -7,6 +6,7 @@
 @property (nonatomic, copy) NSString *placeholderUrl;
 @property (nonatomic, copy) NSString *resizeMode;
 
+@property (nonatomic, assign) BOOL *showLoadingIndicator;
 @property (nonatomic, assign) BOOL *paused;
 
 @property (nonatomic, assign) BOOL useCPU;
