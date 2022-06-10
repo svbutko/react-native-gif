@@ -21,9 +21,10 @@ RCT_EXPORT_MODULE(GifImage)
   [view addSubview:_gifImage];
   return _gifImage;  
 }
-RCT_EXPORT_VIEW_PROPERTY(source, NSString);
+RCT_EXPORT_VIEW_PROPERTY(source, NSDictionary);
 RCT_EXPORT_VIEW_PROPERTY(resizeMode, NSString);
 RCT_EXPORT_VIEW_PROPERTY(placeholderUrl, NSString);
+RCT_EXPORT_VIEW_PROPERTY(showLoadingIndicator, BOOL);
 RCT_EXPORT_VIEW_PROPERTY(paused, BOOL);
 RCT_EXPORT_VIEW_PROPERTY(onLoadEnd, RCTDirectEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(useCPU, BOOL);

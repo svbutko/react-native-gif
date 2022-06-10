@@ -1,5 +1,6 @@
 #import "GifView.h"
 #import <SDWebImage/SDWebImage.h>
+#import "CustomActivityIndicator.h"
 
 @implementation GifView {
 
@@ -38,26 +39,27 @@
             NSData *data = [NSData dataWithContentsOfURL:placeholderUrl];
             placeholderImage = [[UIImage alloc] initWithData:data];
         }
-        
+
         _imageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
         _imageView.sd_imageTransition.duration = 0.4;
         _imageView.shouldIncrementalLoad = YES;
-        
+
         [_imageView sd_setImageWithURL:url placeholderImage:placeholderImage options:SDWebImageProgressiveLoad context:@{SDWebImageContextImageThumbnailPixelSize : @(thumbnailSize)} progress:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
 
             if(self->_onLoadEnd) {
                 self->_onLoadEnd(@{});
             }
         }];
-    
+
     }
 }
 
 
-- (void)setSource:(NSString *)source
+- (void)setSource:(NSDictionary *)source
 {
-  if (![source isEqual:_source]) {
-      _source = [source copy];
+    NSString *uri = [source objectForKey:@"uri"];
+  if (![uri isEqual:_source]) {
+      _source = [uri copy];
       [self reloadImage];
   }
 }
@@ -84,6 +86,19 @@
           _imageView.contentMode = UIViewContentModeScaleAspectFill;
       }
   }
+}
+
+- (void)setShowLoadingIndicator:(BOOL *)showLoadingIndicator
+{
+    if(showLoadingIndicator != _showLoadingIndicator) {
+        _showLoadingIndicator = showLoadingIndicator;
+
+        if (showLoadingIndicator) {
+            _imageView.sd_imageIndicator = [[CustomActivityIndicator alloc] init];
+        } else {
+            _imageView.sd_imageIndicator = nil;
+        }
+    }
 }
 
 - (void)setPaused:(BOOL *)paused

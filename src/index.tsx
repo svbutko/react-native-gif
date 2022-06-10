@@ -1,59 +1,41 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import {
   Image,
-  ImageResizeMode,
+  ImageLoadEventData,
+  ImageProps,
+  ImageStyle,
+  ImageURISource,
+  NativeSyntheticEvent,
   Platform,
   requireNativeComponent,
 } from 'react-native';
 
-type GifProps = {
-  source: string;
-  style: any;
-  resizeMode: ImageResizeMode;
+export interface GifImageProps extends Omit<ImageProps, 'onLoadEnd'> {
+  source: ImageURISource;
+  resizeMode: 'cover' | 'contain';
+  paused?: boolean;
+  style?: ImageStyle;
   placeholderUrl?: string;
-  paused: boolean;
-  onLoadEnd?: () => void;
+  onLoadEnd?: (e?: NativeSyntheticEvent<ImageLoadEventData>) => void;
   useCPU?: boolean;
   quality?: number;
+  showLoadingIndicator?: boolean;
+  children?: ReactNode;
+}
+
+const GifViewManager = requireNativeComponent<GifImageProps>('GifImage');
+
+const GifComponent = Platform.OS === 'ios' ? GifViewManager : Image;
+
+const GifImage: FC<GifImageProps> = (props) => {
+  return <GifComponent {...props} />;
 };
 
-export const GifViewManager = requireNativeComponent<GifProps>('GifImage');
-
-const GifImage = (props: {
-  source: { uri: string };
-  style: any;
-  resizeMode: ImageResizeMode;
-  paused?: boolean;
-  onLoadEnd?: () => void;
-  placeholderUrl?: string;
-  useCPU?: boolean;
-  quality?: number;
-}) => {
-  const {
-    style,
-    source,
-    resizeMode,
-    paused = false,
-    onLoadEnd,
-    useCPU = false,
-    quality = 1,
-    placeholderUrl,
-  } = props;
-  const relovedSource = Image.resolveAssetSource(source);
-  return Platform.OS === 'ios' ? (
-    <GifViewManager
-      style={style}
-      source={relovedSource.uri}
-      resizeMode={resizeMode}
-      paused={paused}
-      onLoadEnd={onLoadEnd}
-      placeholderUrl={placeholderUrl}
-      useCPU={useCPU}
-      quality={quality}
-    />
-  ) : (
-    <Image {...props} />
-  );
+GifImage.defaultProps = {
+  paused: false,
+  useCPU: false,
+  showLoadingIndicator: false,
+  quality: 1,
 };
 
 export default GifImage;
