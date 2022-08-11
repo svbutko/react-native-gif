@@ -21,10 +21,11 @@
 
 - (void)layoutSubviews
 {
-    _imageView.frame = self.bounds;
-
-    [self addSubview:_imageView];
-    [self reloadImage];
+    if (![_imageView superview]) {
+        _imageView.frame = self.bounds;
+        [self addSubview:_imageView];
+        [self reloadImage];
+    }
 }
 
 - (void) reloadImage {
