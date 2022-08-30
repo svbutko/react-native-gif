@@ -25,6 +25,8 @@
         _imageView.frame = self.bounds;
         [self addSubview:_imageView];
         [self reloadImage];
+    } else {
+        _imageView.frame = self.bounds;
     }
 }
 
