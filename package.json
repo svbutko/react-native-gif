@@ -1,6 +1,6 @@
 {
   "name": "@lowkeychat/react-native-gif",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Performant react-native component for GIF",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
