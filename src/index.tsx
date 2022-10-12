@@ -18,6 +18,7 @@ export interface GifImageProps extends Omit<ImageProps, 'onLoadEnd'> {
   placeholderUrl?: string;
   onLoadEnd?: (e?: NativeSyntheticEvent<ImageLoadEventData>) => void;
   useCPU?: boolean;
+  fadeIn?: boolean;
   quality?: number;
   showLoadingIndicator?: boolean;
   children?: ReactNode;
@@ -35,6 +36,7 @@ GifImage.defaultProps = {
   paused: false,
   useCPU: false,
   showLoadingIndicator: false,
+  fadeIn: true,
   quality: 1,
 };
 
