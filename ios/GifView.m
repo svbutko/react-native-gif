@@ -12,9 +12,11 @@
   if ((self = [super initWithFrame:frame])) {
       _imageView = [SDAnimatedImageView new];
 
-      _imageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
-      _imageView.sd_imageTransition.duration = 0.4;
-      _imageView.shouldIncrementalLoad = YES;
+      if(_fadeIn) {
+          _imageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
+          _imageView.sd_imageTransition.duration = 0.4;
+          _imageView.shouldIncrementalLoad = YES;
+      }
   }
   return self;
 }
@@ -43,9 +45,11 @@
             placeholderImage = [[UIImage alloc] initWithData:data];
         }
 
-        _imageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
-        _imageView.sd_imageTransition.duration = 0.4;
-        _imageView.shouldIncrementalLoad = YES;
+        if(_fadeIn) {
+            _imageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
+            _imageView.sd_imageTransition.duration = 0.4;
+            _imageView.shouldIncrementalLoad = YES;
+        }
 
         [_imageView sd_setImageWithURL:url placeholderImage:placeholderImage options:SDWebImageProgressiveLoad context:@{SDWebImageContextImageThumbnailPixelSize : @(thumbnailSize)} progress:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
 
@@ -74,6 +78,11 @@
       _placeholderUrl = [placeholderUrl copy];
       [self reloadImage];
   }
+}
+
+- (void)setFadeIn:(BOOL *)fadeIn
+{
+    _fadeIn = fadeIn;
 }
 
 

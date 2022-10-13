@@ -17,14 +17,14 @@ export default function App() {
   const [gifs, setGifs] = React.useState([]);
 
   React.useEffect(() => {
-    fetch('https://g.tenor.com/v1/trending')
+    fetch('https://g.tenor.com/v1/trending?key=LIVDSRZULELA')
       .then((response) => response.json())
       .then((json) => {
-        console.log(json.results);
+        console.log('load', json.results);
         setGifs(json.results);
       })
       .catch((error) => {
-        console.error(error);
+        console.error('test', error);
       });
   }, []);
 
@@ -44,6 +44,7 @@ export default function App() {
                 source={{
                   uri: g.media[0].nanogif.url,
                 }}
+                fadeIn={false}
                 style={styles.box}
                 resizeMode={'cover'}
                 paused={paused}

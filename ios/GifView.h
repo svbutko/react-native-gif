@@ -4,10 +4,13 @@
 @interface GifView : UIView
 @property (nonatomic, copy) NSString *source;
 @property (nonatomic, copy) NSString *placeholderUrl;
+
 @property (nonatomic, copy) NSString *resizeMode;
 
 @property (nonatomic, assign) BOOL *showLoadingIndicator;
 @property (nonatomic, assign) BOOL *paused;
+@property (nonatomic, assign) BOOL *fadeIn;
+
 
 @property (nonatomic, assign) BOOL useCPU;
 @property (nonatomic, assign) double quality;
