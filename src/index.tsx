@@ -10,7 +10,8 @@ import {
   requireNativeComponent,
 } from 'react-native';
 
-export interface GifImageProps extends Omit<ImageProps, 'onLoadEnd'> {
+export interface GifImageProps
+  extends Omit<ImageProps, 'onLoadEnd' | 'fadeDuration'> {
   source: ImageURISource;
   resizeMode: 'cover' | 'contain';
   paused?: boolean;
@@ -19,6 +20,7 @@ export interface GifImageProps extends Omit<ImageProps, 'onLoadEnd'> {
   onLoadEnd?: (e?: NativeSyntheticEvent<ImageLoadEventData>) => void;
   useCPU?: boolean;
   fadeIn?: boolean;
+  fadeInDuration?: number;
   quality?: number;
   showLoadingIndicator?: boolean;
   children?: ReactNode;
@@ -38,6 +40,7 @@ GifImage.defaultProps = {
   showLoadingIndicator: false,
   fadeIn: true,
   quality: 1,
+  fadeInDuration: 0.15,
 };
 
 export default GifImage;
