@@ -44,8 +44,9 @@ export default function App() {
                 source={{
                   uri: g.media[0].nanogif.url,
                 }}
-                fadeIn={false}
+                fadeIn={true}
                 style={styles.box}
+                fadeInDuration={1}
                 resizeMode={'cover'}
                 paused={paused}
                 onLoadEnd={() => console.log('onLoadEnd', index)}

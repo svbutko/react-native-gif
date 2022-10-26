@@ -11,12 +11,7 @@
 {
   if ((self = [super initWithFrame:frame])) {
       _imageView = [SDAnimatedImageView new];
-
-      if(_fadeIn) {
-          _imageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
-          _imageView.sd_imageTransition.duration = 0.4;
-          _imageView.shouldIncrementalLoad = YES;
-      }
+      [self playFadeIn];
   }
   return self;
 }
@@ -45,11 +40,7 @@
             placeholderImage = [[UIImage alloc] initWithData:data];
         }
 
-        if(_fadeIn) {
-            _imageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
-            _imageView.sd_imageTransition.duration = 0.4;
-            _imageView.shouldIncrementalLoad = YES;
-        }
+        [self playFadeIn];
 
         [_imageView sd_setImageWithURL:url placeholderImage:placeholderImage options:SDWebImageProgressiveLoad context:@{SDWebImageContextImageThumbnailPixelSize : @(thumbnailSize)} progress:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
 
@@ -58,6 +49,15 @@
             }
         }];
 
+    }
+}
+
+- (void)playFadeIn
+{
+    if(_fadeIn) {
+        _imageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
+        _imageView.sd_imageTransition.duration = _fadeInDuration;
+        _imageView.shouldIncrementalLoad = YES;
     }
 }
 
@@ -71,6 +71,14 @@
   }
 }
 
+- (void)setFadeInDuration:(double)fadeInDuration
+{
+    if(_fadeInDuration != fadeInDuration) {
+        _fadeInDuration = fadeInDuration;
+        [self reloadImage];
+    }
+}
+
 
 - (void)setPlaceholderUrl:(NSString *)placeholderUrl
 {
@@ -80,8 +88,8 @@
   }
 }
 
-- (void)setFadeIn:(BOOL *)fadeIn
-{
+- (void)setFadeIn:(BOOL)fadeIn
+{   
     _fadeIn = fadeIn;
 }
 
