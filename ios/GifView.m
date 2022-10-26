@@ -75,7 +75,6 @@
 {
     if(_fadeInDuration != fadeInDuration) {
         _fadeInDuration = fadeInDuration;
-        [self reloadImage];
     }
 }
 

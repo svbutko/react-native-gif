@@ -11,7 +11,7 @@ import {
 import GifImage from '@lowkeychat/react-native-gif';
 
 export default function App() {
-  const [hide, setHide] = React.useState(true);
+  const [hide, setHide] = React.useState(false);
   const [paused, setPaused] = React.useState(false);
 
   const [gifs, setGifs] = React.useState([]);
@@ -46,7 +46,7 @@ export default function App() {
                 }}
                 fadeIn={true}
                 style={styles.box}
-                fadeInDuration={1}
+                fadeInDuration={0.5}
                 resizeMode={'cover'}
                 paused={paused}
                 onLoadEnd={() => console.log('onLoadEnd', index)}
@@ -73,12 +73,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    backgroundColor: 'green',
   },
   container: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height * 0.8,
-    backgroundColor: 'red',
   },
   containerContent: {
     paddingTop: 100,
@@ -91,14 +89,14 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.2,
     height: Dimensions.get('window').width * 0.2,
     marginVertical: 20,
-    backgroundColor: 'rgba(0,255,0,1)',
     margin: 15,
     borderRadius: 30,
     overflow: 'hidden',
   },
   button: {
-    backgroundColor: 'pink',
+    backgroundColor: '#b1bcff',
     padding: 20,
     marginTop: 5,
+    borderRadius: 20,
   },
 });
