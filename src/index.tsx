@@ -15,7 +15,7 @@ export interface GifImageProps
   source: ImageURISource;
   resizeMode: 'cover' | 'contain';
   paused?: boolean;
-  style?: ImageStyle;
+  style?: ImageProps['style'];
   placeholderUrl?: string;
   onLoadEnd?: (e?: NativeSyntheticEvent<ImageLoadEventData>) => void;
   useCPU?: boolean;
