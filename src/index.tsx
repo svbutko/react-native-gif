@@ -3,7 +3,6 @@ import {
   Image,
   ImageLoadEventData,
   ImageProps,
-  ImageStyle,
   ImageURISource,
   NativeSyntheticEvent,
   Platform,
